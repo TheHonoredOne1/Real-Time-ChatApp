@@ -42,10 +42,8 @@ export const signup = async (req, res) => {
     if (newUser) {
       /// generate jwt token
       generateTokenAndSetCookie(newUser._id, res);
-
-
-      await newUser.save();// to keep it saved in the database //
-
+      await newUser.save();
+      // to keep it saved in the database //
       // [201] -----> 'successfully created user.'
       res.status(201).json(
         {
@@ -68,9 +66,12 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
+
+
     const isPasswordCorrect = await bcrypt.compare(password, user?.password || "")
     // optional chaining ====> in case user is null 
     if (!user || !isPasswordCorrect) {
@@ -89,8 +90,6 @@ export const login = async (req, res) => {
       }
     )
 
-
-
   } catch (error) {
     console.log("Error in the Login controller.", error.message)
     res.status(500).json({ message: "Internal Server Error." })
@@ -102,7 +101,7 @@ export const logout = async (req, res) => {
 
   try {
   
-    res.cookie("jwt", "", {maxAge:0})
+    res.cookie("jwt-token", "", {maxAge:0})
     res.status(200).json({ message: "Logged out successfully." })
   
   } 
