@@ -8,19 +8,19 @@ export const signup = async (req, res) => {
 
 
     if (password !== confirmPassword) {
-    
+
       // 400 -> bad request // request hi GALAT hai behinchod !!!
       return res.status(400).json({ message: "Passwords do not match. Try Again!" })
-    
+
     }
 
     const user = await User.findOne({ username })
 
     if (user) {
-    
+
       // firse bad request => 'sala hack karne ki koshish kar raha.'
       return res.status(400).json({ error: "Username already exists. set up another username." })
-    
+
     }
 
     // hashing password here //
@@ -66,7 +66,9 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  
+
+  // console.log(req, res)
+
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -79,6 +81,8 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid Credentials." })
 
     }
+
+
     generateTokenAndSetCookie(user._id, res);
 
     res.status(200).json(
@@ -91,6 +95,7 @@ export const login = async (req, res) => {
     )
 
   } catch (error) {
+
     console.log("Error in the Login controller.", error.message)
     res.status(500).json({ message: "Internal Server Error." })
 
@@ -100,13 +105,13 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
 
   try {
-  
-    res.cookie("jwt-token", "", {maxAge:0})
+
+    res.cookie("jwt-token", "", { maxAge: 0 })
     res.status(200).json({ message: "Logged out successfully." })
-  
-  } 
+
+  }
   catch (error) {
-  
+
     console.log("Error in the Logout controller.", error.message)
     res.status(500).json({ message: "Internal Server Error." })
 
