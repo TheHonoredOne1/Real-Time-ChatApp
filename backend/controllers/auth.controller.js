@@ -10,7 +10,7 @@ export const signup = async (req, res) => {
     if (password !== confirmPassword) {
 
       // 400 -> bad request // request hi GALAT hai behinchod !!!
-      return res.status(400).json({ message: "Passwords do not match. Try Again!" })
+      return res.status(400).json({ error: "Passwords do not match. Try Again!" })
 
     }
 
@@ -40,34 +40,33 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
+
       /// generate jwt token
       generateTokenAndSetCookie(newUser._id, res);
       await newUser.save();
-      // to keep it saved in the database //
-      // [201] -----> 'successfully created user.'
+
+
       res.status(201).json(
         {
           __id: newUser.__id,
           fullName: newUser.fullName,
           username: newUser.username,
-          gender: newUser.gender,
+          // gender: newUser.gender,
           profilePic: newUser.profilePic,
         }
       )
     }
     else {
-      res.status(400).json({ message: "Invalid User Data." })
+      res.status(400).json({ error: "Invalid User Data." })
     }
   }
   catch (error) {
-    console.log("Erro in the signup controller.", error.message)
-    res.status(500).json({ message: "Internal Server Error." })
+    console.log("Error in the signup controller.", error.message)
+    res.status(500).json({ error: "Internal Server Error." })
   }
 };
 
 export const login = async (req, res) => {
-
-  // console.log(req, res)
 
   try {
     const { username, password } = req.body;
@@ -113,7 +112,7 @@ export const logout = async (req, res) => {
   catch (error) {
 
     console.log("Error in the Logout controller.", error.message)
-    res.status(500).json({ message: "Internal Server Error." })
+    res.status(500).json({ error: "Internal Server Error." })
 
   }
 };
