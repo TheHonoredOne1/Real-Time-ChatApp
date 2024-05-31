@@ -3,11 +3,14 @@ import { useAuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 const useLogout = () => {
+
     const [loading, setLoading] = useState(false);
     const { setAuthUser } = useAuthContext();
 
     const logout = async () => {
+
         setLoading(true);
+        
         try {
             const res = await fetch("/api/auth/logout", {
                 method: "POST",
@@ -21,9 +24,14 @@ const useLogout = () => {
 
             localStorage.removeItem("chat-user");
             setAuthUser(null);
-        } catch (error) {
+
+        } 
+        catch (error) 
+        {
             toast.error(error.message);
-        } finally {
+        } 
+        finally 
+        {
             setLoading(false);
         }
     };

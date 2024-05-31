@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useContext, useState } from "react";
 import { useEffect } from "react";
+
 export const AuthContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
