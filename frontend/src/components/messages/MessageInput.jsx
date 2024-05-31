@@ -1,9 +1,12 @@
+
+
 import { BsSend } from "react-icons/bs";
 
 function MessageInput() {
 	return (
+
+
 		<form className='px-4 my-3 relative'>
-			
 			<div className='w-full'>
 				<input
 					type='text'
@@ -14,8 +17,8 @@ function MessageInput() {
 					<BsSend />
 				</button>
 			</div>
-
 		</form>
-	);
+
+);
 };
 export default MessageInput;

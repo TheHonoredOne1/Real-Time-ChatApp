@@ -11,23 +11,28 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = ({ children }) => {
 
-    const [authUser, setAuthUser] = useState(null);
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem("chat-user");
-        if (storedUser) {
-            try {
-                const parsedUser = JSON.parse(storedUser);
-                setAuthUser(parsedUser);
-            } catch (error) {
-                console.error('Failed to parse user from localStorage:', error);
-                setAuthUser(null);
-            }
-        }
-    }, []);
-
+    const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem("chat-user")) || null);
 
     return (<AuthContext.Provider value={{ authUser, setAuthUser }}>
         {children}
     </AuthContext.Provider>);
 };
+
+// chat gpt improvisations
+/*
+
+const [authUser, setAuthUser] = useState(null);
+useEffect(() => {
+    const storedUser = localStorage.getItem("chat-user");
+    if (storedUser) {
+        try {
+            const parsedUser = JSON.parse(storedUser);
+            setAuthUser(parsedUser);
+        } catch (error) {
+            console.error('Failed to parse user from localStorage:', error);
+            setAuthUser(null);
+        }
+    }
+}, []);
+
+*/
