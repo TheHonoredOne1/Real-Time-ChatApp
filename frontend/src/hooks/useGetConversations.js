@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const useGetConversations = () => {
@@ -14,8 +15,8 @@ const useGetConversations = () => {
             try {
                 const res = await fetch('/api/users')
                 const data = await res.json()
-
-                if (data.error) {
+                if (data.error) 
+                {
                     throw new Error(data.error)
                 }
                 setConversations(data)
