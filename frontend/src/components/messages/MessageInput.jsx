@@ -17,7 +17,7 @@ function MessageInput() {
 	}
 
 	return (
-		<form className='px-4 my-3 relative' onSubmit={handleSubmit}>
+		<form className='px-4 my-1 relative' onSubmit={handleSubmit}>
 			<div className='w-full relative'>
 				<input
 					type='text'
@@ -26,7 +26,7 @@ function MessageInput() {
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 				/>
-				<button type='submit' className='absolute inset-y-0 end-5 flex items-center pe-3'>
+				<button type='submit' className='absolute inset-y-0 end-5 flex items-center'>
 					{loading ? <div className='loading loading-spinner'></div> : <BsSend />}
 				</button>
 			</div>
